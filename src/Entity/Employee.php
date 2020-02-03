@@ -31,7 +31,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  *     }
  * )
  * @ORM\Table(name="employee")
- * @ApiFilter(SearchFilter::class, properties={"job":"exact"})
  * @ApiFilter(OrderFilter::class, properties={"id", "name"})
  * @ORM\Entity(repositoryClass="App\Repository\EmployeeRepository")
  */
@@ -83,14 +82,6 @@ class Employee
      * @Groups({"employee:read", "employee:write"})
      */
     private $firedDate;
-
-    /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="App\Entity\EmployeeJob", fetch="EAGER")
-     * @ApiSubresource
-     * @Groups({"employee:read", "employee:write"})
-     */
-    private $job;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="employees")
@@ -167,18 +158,6 @@ class Employee
     public function setFiredDate(?\DateTimeInterface $firedDate): self
     {
         $this->firedDate = $firedDate;
-
-        return $this;
-    }
-
-    public function getJob(): ?EmployeeJob
-    {
-        return $this->job;
-    }
-
-    public function setJob(?EmployeeJob $job): self
-    {
-        $this->job = $job;
 
         return $this;
     }
