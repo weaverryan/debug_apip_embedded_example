@@ -32,7 +32,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  * )
  * @ORM\Table(name="employee")
  * @ApiFilter(OrderFilter::class, properties={"id", "name"})
- * @ORM\Entity(repositoryClass="App\Repository\EmployeeRepository")
+ * @ORM\Entity()
  */
 class Employee
 {

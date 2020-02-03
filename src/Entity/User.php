@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "groups"={"user:write"}
  *     })
  * @ApiFilter(SearchFilter::class, properties={"username": "exact", "username_canonical": "exact", "email": "exact"})
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity()
  * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="username_uniq", columns={"username"})})
  */
 class User
@@ -103,6 +103,8 @@ class User
     public function __construct()
     {
         $this->employees = new ArrayCollection();
+        $this->confirmation_token = 'foo';
+        $this->registration_date = new \DateTime();
     }
 
     public function getId(): ?int
@@ -118,6 +120,7 @@ class User
     public function setUsername(string $username): self
     {
         $this->username = $username;
+        $this->username_canonical = $username;
 
         return $this;
     }
